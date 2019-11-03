@@ -78,8 +78,6 @@
 		        
 					<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1137269743&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
 		        
-					<a class="weixin" target="_blank" href="/qq1137269743" title="weixin"><i class="icon-weixin"></i></a>
-		        
 					<a class="mail" target="_blank" href="mailto:1137269743@qq.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
@@ -122,8 +120,6 @@
 						<a class="github" target="_blank" href="https://github.com/1137269743/" title="github"><i class="icon-github"></i></a>
 			        
 						<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1137269743&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
-			        
-						<a class="weixin" target="_blank" href="/qq1137269743" title="weixin"><i class="icon-weixin"></i></a>
 			        
 						<a class="mail" target="_blank" href="mailto:1137269743@qq.com" title="mail"><i class="icon-mail"></i></a>
 			        
@@ -189,28 +185,9 @@ Dism /online /enable-feature /featurename:Microsoft-Hyper-V-All /LimitAccess /AL
 
 <p>（详情去看这里<a href="https://www.jianshu.com/p/bf9ac6eec1c2" target="_blank" rel="noopener">https://www.jianshu.com/p/bf9ac6eec1c2</a> ）</p>
 <p>创建一个Hyper-V.cmd文件，将这串东西粘贴进去，然后保存，右键管理员运行。这里还有一个坑，就是这东西不会停止，所以看到差不多就可以直接把这玩意关了，最后重启就行。</p>
-<h2>二、坑爹的HDocker Quickstart </h2>
-然后安装完docker之后发现，桌面上的Docker Quickstart Terminal快捷方式这玩意一直打不开，提示说找不到bash，查了下资料才知道，是因为我之前安装过Git了，要修改一下Docker Quickstart Terminal的bash.exe默认地址（右键属性->快捷方式->目标）。
-
-<pre style="background:#FFEBCD">
-//To disable:
-bcdedit /set hypervisorlaunchtype off
-
-//To enable:
-bcdedit /set hypervisorlaunchtype auto 
-</pre>
-<p>当我改完了，以为已经稳了的时候。又给我报了个错”This computer is running Hyper-V. VirtualBox won’t boot a 64bits VM when Hyp”（）。这玩意跟毒瘤一样，必须先把Hyper-V给关了才行，无奈之下我又把这东西给关了，再打开就可以继续了，打开之后是从github上下载boot2docker.iso镜像，这个过程非常缓慢- -…………………………最终忍无可忍的我选择了自己去下载。</p>
-<p>然后……</p>
-<p>还是一样的缓慢，后来我再去查了查，我看到了这篇东西（<a href="https://blog.csdn.net/dhaiuda/article/details/81975550" target="_blank" rel="noopener">https://blog.csdn.net/dhaiuda/article/details/81975550</a> ），原来就在Docker的安装目录下就已经有boot2docker.iso这个东西了，把他复制放到C:\Users\用户名\.docker\machine\cache这里就行了，但是和上面链接说的有点不一样，我们不需要断网，不然就会一直停在Waiting for an IP这里（别问我怎么知道的）。</p>
-<p>然后就是输入docker run hello-world,再输入docker run -it ubuntu bash，等待下载，这又是一个缓慢的过程，但是莫得办法。然后弄好之后，记得去开启Hyper-V（开始图标右键-&gt;应用和功能，拉到最底下-&gt;程序和相关功能-&gt;启用或关闭Windows功能-&gt;找到Hyper-V，把里面的东西全部打上勾）</p>
-<h2>三、大坑：HDocker Quickstart </h2>
-
-<p>然后更坑的东西就来了，安装Toolbox。这东西要先去官网（<a href="https://www.docker.com/get-docker" target="_blank" rel="noopener">https://www.docker.com/get-docker</a> ）下载，然后要下载的话得先注册Docker的账号才能下载。下载完之后，我就去直接打开，然后就……你没猜错，又进坑了……Toolbox在windows的话只支持windows专业版，家庭版的安装会报 Docker for Windows requires Windows 10 Pro or Enterprise version 14393这个错，属实坑爹。然后我又去查了查（幸好我搜索信息的能力够强，不然得被玩死），又找到了解决办法（<a href="https://www.jianshu.com/p/1329954aa329/" target="_blank" rel="noopener">https://www.jianshu.com/p/1329954aa329/</a> ）就是说Desktop会在安装的时候检测系统版本，直接安装会显示安装失败，所以要改下注册表绕过安装检测。具体操作就是：打开注册表，定位到HKEY_LOCAL_MACHINE\software\Microsoft\Windows NT\CurrentVersion，点击current version，在右侧找到EditionId，右键点击EditionId 选择“修改“，在弹出的对话框中将第二项”数值数据“的内容改为Professional，然后点击确定。<br>如果嫌改注册表麻烦，可以用管理员权限运行如下cmd命令</p>
-<pre style="background:#FFEBCD">REG ADD "HKEY_LOCAL_MACHINE\software\Microsoft\Windows NT\CurrentVersion" /v EditionId /T REG_EXPAND_SZ /d Professional /F</pre>
-<p>要注意的有两点: 1、修改前先备份注册表。2、重启后此项注册表值会自动还原，但不影响docker运行。</p>
-<p>最后重启电脑，打开Docker for Windows 右键系统右下角托盘 Docker 图标内右键菜单选择 Settings，打开配置窗口后左侧导航菜单选择 Daemon。在 Registrymirrors 一栏中填写加速器地址 <a href="https://registry.docker-cn.com" target="_blank" rel="noopener">https://registry.docker-cn.com</a> ，之后点击 Apply 保存后 Docker 就会重启并应用配置的镜像地址了。</p>
-<p>最后，这个艰难的安装过程就结束了- -（心情复杂）</p>
-
+        
+          <a class="article-more-a" href="/2019/11/03/%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%AE%89%E8%A3%85Docker%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/#more">more >></a>
+        
       
 
       

@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Flagship">
 <meta property="og:description" content="##首先就是我准备在Windows下面安装docker，去学习一点东西。 一、坑爹的Hyper-V 然后我就去菜鸟教程去找安装教程，看到安装教程要弄那个Hyper-V虚拟机，然后我发现，win10家庭版是没有自带Hyper-V虚拟机的，然后我用了其他的办法来解决： pushd &quot;%~dp0&quot; dir &#x2F;b %SystemRoot%\servicing\Packages\*Hyper-V*.mum">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-03T12:39:32.524Z">
+<meta property="og:updated_time" content="2019-11-03T15:40:52.888Z">
 <meta name="twitter:card" content="summary">
   
   
@@ -82,8 +82,6 @@
 		        
 					<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1137269743&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
 		        
-					<a class="weixin" target="_blank" href="/qq1137269743" title="weixin"><i class="icon-weixin"></i></a>
-		        
 					<a class="mail" target="_blank" href="mailto:1137269743@qq.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
@@ -126,8 +124,6 @@
 						<a class="github" target="_blank" href="https://github.com/1137269743/" title="github"><i class="icon-github"></i></a>
 			        
 						<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1137269743&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
-			        
-						<a class="weixin" target="_blank" href="/qq1137269743" title="weixin"><i class="icon-weixin"></i></a>
 			        
 						<a class="mail" target="_blank" href="mailto:1137269743@qq.com" title="mail"><i class="icon-mail"></i></a>
 			        
@@ -191,6 +187,8 @@ Dism /online /enable-feature /featurename:Microsoft-Hyper-V-All /LimitAccess /AL
 
 <p>（详情去看这里<a href="https://www.jianshu.com/p/bf9ac6eec1c2" target="_blank" rel="noopener">https://www.jianshu.com/p/bf9ac6eec1c2</a> ）</p>
 <p>创建一个Hyper-V.cmd文件，将这串东西粘贴进去，然后保存，右键管理员运行。这里还有一个坑，就是这东西不会停止，所以看到差不多就可以直接把这玩意关了，最后重启就行。</p>
+<a id="more"></a>
+
 <h2>二、坑爹的HDocker Quickstart </h2>
 然后安装完docker之后发现，桌面上的Docker Quickstart Terminal快捷方式这玩意一直打不开，提示说找不到bash，查了下资料才知道，是因为我之前安装过Git了，要修改一下Docker Quickstart Terminal的bash.exe默认地址（右键属性->快捷方式->目标）。
 
